@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool multiplo(int a, int b)
+{
+  return a%b == 0;
+}
+
+bool primo(int x)
+{
+  if (x < 2) return false;
+  for (int n = 2; n < x; n++) {
+    if (multiplo(x, n)) return false;
+  }
+  return true;
+}
+
+int intervalo_primos(int c, int d)
+{
+    int cont=0, y=0, p, q;
+    p=c;
+    q=d;
+
+    for (;p!=q;p++) {
+            if (primo(p)){
+            y++;
+            }
+        }
+    return y;
+}
+
+int quantos_primos_no_intervalo_com_ordem(int c, int d)
+{
+    int tamanho, intervalo, ordem;
+
+    tamanho = c;
+    ordem = d;
+
+    intervalo = tamanho * ordem;
+
+    return intervalo_primos(intervalo, intervalo+tamanho);
+}
+
+int intervalo_q_tem_menos_primos (int c, int d){
+    int tamanho, ordem, i, intervalo_menor=10000, x;
+
+    tamanho = c;
+    ordem = d;
+
+    for(i=0;i<=ordem;i++){
+        quantos_primos_no_intervalo_com_ordem(tamanho, i);
+
+        x = i;
+
+        if(intervalo_menor > x){
+            intervalo_menor = x;
+        }
+    }
+    return intervalo_menor;
+}
+
+int main(void)
+{
+  int a = 10, b=3;
+  printf("o intervalo que tem menos primos seria o %d\n", intervalo_q_tem_menos_primos(a, b));
+  return 0;
+}
