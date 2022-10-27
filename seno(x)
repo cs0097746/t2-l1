@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+double fat(int n)
+{
+    double f = 1;
+    double valor = n;
+        for(int i=0;i<n;i++){
+            f *= valor;
+            valor--;
+        }
+    
+    return f;
+}
+
+double xnan(double x, int y){
+    int p, n;
+    double z;
+    p = y;
+    z = x;
+    for (n=1;n!=p;n++){
+        x = z*x;
+    }
+    return x;
+}
+
+double seno(double ang)
+{
+    double s = 0;
+    double erro;
+    double x = ang/180*3.14159;
+    int i = 1;
+    double mult = 1;
+    do{
+        double fator = xnan(x, i) / fat(i);
+        double valor = mult * fator;
+        s+=valor;
+        erro = fator;
+        i += 2;
+        mult*= -1;
+    } while (erro>0.000001);
+    
+    return s;
+}
+
+int main()
+{
+    int a=30;
+    double xis;
+    xis = seno(a);
+    printf("seno = %lf \n", seno);
+
+    return 0;
+}
